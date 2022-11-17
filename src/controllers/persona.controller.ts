@@ -1,3 +1,4 @@
+import {authenticate} from '@loopback/authentication';
 import { service } from '@loopback/core';
 import {
   Count,
@@ -24,6 +25,7 @@ import {PersonaRepository} from '../repositories';
 import {AutenticacionService} from '../services';
 const fetch = require('node-fetch');
 
+//@authenticate('admin')
 export class PersonaController {
   constructor(
     @repository(PersonaRepository)
@@ -32,6 +34,7 @@ export class PersonaController {
     public servicioAutenticacion: AutenticacionService
   ) {}
 
+  //@authenticate.skip() → para que no sea obligatorio para este modulo la autenticacion de Admin
   @post('/identificarPersona',{
     responses:{
       '200':{
@@ -59,6 +62,7 @@ export class PersonaController {
     }
   }
 
+  //@authenticate('admin')
   @post('/personas')
   @response(200, {
     description: 'Persona model instance',
